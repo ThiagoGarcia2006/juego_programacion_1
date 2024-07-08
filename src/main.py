@@ -174,7 +174,7 @@ while True:
             if shot["rect"].left > WIDTH:
                 shot = None
 
-        if shot_special:
+        elif shot_special:
             shot_special["rect"].move_ip(shot_special["speed"], 0)  
             if shot_special["rect"].left > WIDTH:
                 shot_special = None 
@@ -194,7 +194,6 @@ while True:
             for enemy in enemys.copy():
                 if shot_special and detectar_colision(shot_special["rect"], enemy["rect"]):
                     enemys.remove(enemy)
-                    shot_special = None
                     score += 1  
                     collision_sound.play()
                     if len(enemys) == 0:
@@ -226,6 +225,9 @@ while True:
             
         if shot:
             pygame.draw.rect(screen, shot["color"], shot["rect"])
+
+        if shot_special:
+            pygame.draw.rect(screen, shot_special["color"], shot_special["rect"])    
 
         for enemy in enemys:  
             if enemy ["img"]:
