@@ -117,6 +117,13 @@ def load_enemy_list(lista: list, qty_enemy: int, imagen:pygame.Surface = None):
     Note:
     Esta función modifica la lista `lista` agregando `qty_enemy` nuevos enemigos creados con la función `create_enemy`.
     """
-    for _ in range (qty_enemy):
-        new_enemy = create_enemy(imagen)
-        lista.append(new_enemy)
+    try:
+        for _ in range(qty_enemy):
+            new_enemy = create_enemy(imagen)
+            if new_enemy:
+                lista.append(new_enemy)
+    except Exception as e:
+        print(f"Error al cargar lista de enemigos: {str(e)}")
+    # for _ in range (qty_enemy):
+    #     new_enemy = create_enemy(imagen)
+    #     lista.append(new_enemy)

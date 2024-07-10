@@ -22,6 +22,23 @@ INITIAL_ENEMYS = 10
 
 SPEED = 5
 
+FONT_SIZE = 40
+
+FONT_TYPE = "./src/assets/font/dash-horizon.otf"
+SCREEN_TYPE = "./src/assets/images/fondo.jpg"
+SCREEN_MENU_TYPE = "./src/assets/images/fondo_menu.jpg"
+IMAGE_PLAYER_TYPE = "./src/assets/images/player.png"
+IMAGE_ENEMY_TYPE = "./src/assets/images/enemy.png"
+START_BUTTON_TYPE = "./src/assets/images/start_button.png"
+LOGO_TYPE = "./src/assets/images/logo.png"
+SHOT_TIPE = "./src/assets/sounds/disparo.mp3"
+GAME_OVER_TYPE = "./src/assets/sounds/game_over.mp3"
+LEVEL_TYPE = "./src/assets/sounds/exito.mp3"
+COLLISION_TYPE = "./src/assets/sounds/enemy.mp3"
+MUSIC_TYPE = "./src/assets/sounds/musica.mp3"
+
+
+
 #colors
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)

@@ -7,6 +7,7 @@ from pygame.locals import *
 
 
 
+
 def terminar():
     """
     Termina la ejecución de Pygame y sale del programa.
@@ -170,6 +171,16 @@ def wait_user_click(rect_button: pygame.Rect):
                 if evento.button == 1:
                     if punto_en_rectangulo(evento.pos, rect_button):
                         flag_start = False
+
+
+
+
+
+
+
+
+
+
 
 
 

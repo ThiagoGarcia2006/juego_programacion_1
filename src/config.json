@@ -1,0 +1,38 @@
+{
+    "screen": {
+      "size": [800, 600],
+      "caption": "Cazador",
+      "icon": "logo.png"
+    },
+    "fonts": {
+      "font_type": "font.ttf",
+      "font_size": 24
+    },
+    "images": {
+      "background": "background.png",
+      "menu_background": "menu_background.png",
+      "player": "player.png",
+      "enemy": "enemy.png",
+      "start_button": "start_button.png"
+    },
+    "sounds": {
+      "shot": "shot.wav",
+      "game_over": "game_over.wav",
+      "level": "level.wav",
+      "collision": "collision.wav",
+      "music": "music.mp3"
+    },
+    "buttons": {
+      "color": {
+        "default": [255, 0, 0],
+        "hover": [255, 255, 0]
+      },
+      "size": [200, 50],
+      "positions": {
+        "play": [300, 200],
+        "score": [300, 300],
+        "quit": [300, 500]
+      }
+    }
+  }
+  
