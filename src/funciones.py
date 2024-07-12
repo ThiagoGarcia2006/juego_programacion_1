@@ -172,6 +172,22 @@ def wait_user_click(rect_button: pygame.Rect):
                     if punto_en_rectangulo(evento.pos, rect_button):
                         flag_start = False
 
+def obtener_mayor(valor1, valor2):
+    """
+    Devuelve el mayor de dos valores.
+
+    Parameters:
+    valor1 (int/float): El primer valor a comparar.
+    valor2 (int/float): El segundo valor a comparar.
+
+    Returns:
+    int/float: El mayor de los dos valores.
+    """
+    if valor1 > valor2:
+        return valor1
+    else:
+        return valor2                   
+
 
 
 

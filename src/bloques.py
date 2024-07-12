@@ -124,6 +124,3 @@ def load_enemy_list(lista: list, qty_enemy: int, imagen:pygame.Surface = None):
                 lista.append(new_enemy)
     except Exception as e:
         print(f"Error al cargar lista de enemigos: {str(e)}")
-    # for _ in range (qty_enemy):
-    #     new_enemy = create_enemy(imagen)
-    #     lista.append(new_enemy)

@@ -5,7 +5,6 @@ from settings import *
 from bloques import *
 from pygame.locals import *
 from funciones import *
-import time
 import csv
 import json
 
@@ -91,7 +90,7 @@ def main_menu():
         # Dibujar los botones y manejar eventos
         if draw_button("Jugar", pygame.Rect(300, 200, 200, 50), RED, YELLOW, go_to_screen1):
             mouse_over_button = True
-        if draw_button("Opciones", pygame.Rect(300, 300, 200, 50), RED, YELLOW, go_to_screen2):
+        if draw_button("Puntajes", pygame.Rect(300, 300, 200, 50), RED, YELLOW, go_to_screen2):
             mouse_over_button = True
         if draw_button("Salir", pygame.Rect(300, 500, 200, 50), RED, YELLOW, quit_game):
             mouse_over_button = True
@@ -145,7 +144,7 @@ def screen1():
         while is_running:
             clock.tick(FPS)
             current_time = pygame.time.get_ticks()  # Obtén el tiempo actual en milisegundos
-            tiempo_restante = max(0, special_ability_cooldown - (current_time - last_special_ability_time))  # Calcula el tiempo restante del cooldown
+            tiempo_restante = obtener_mayor(0, special_ability_cooldown - (current_time - last_special_ability_time))  # Calcula el tiempo restante del cooldown
             # ----> detectar los eventos
             for evento in pygame.event.get():
                 if evento.type == QUIT:
@@ -208,11 +207,13 @@ def screen1():
                 
             pygame.mouse.set_pos(block["rect"].center)
 
+            # Movimiento de los enemigos
             for enemy in enemys:
                 enemy["rect"].move_ip(-enemy["speed_x"], 0)  
                 if enemy["rect"].right < 0:  
                     enemy["rect"].left = WIDTH  
-                
+
+            # Movimiento y manejo de disparos    
             if shot:
                 shot["rect"].move_ip(shot["speed"], 0)  
                 if shot["rect"].left > WIDTH:
@@ -223,6 +224,7 @@ def screen1():
                 if shot_special["rect"].left > WIDTH:
                     shot_special = None 
 
+            # Colisiones de disparos con enemigos y efectos
             if shot:
                 for enemy in enemys:  
                     if shot and detectar_colision(shot["rect"], enemy["rect"]):
@@ -243,8 +245,9 @@ def screen1():
                         if len(enemys) == 0:
                             special_ability_active = False
                             load_enemy_list(enemys, INITIAL_ENEMYS, imagen_enemy)
-                            level_sound.play()                       
-                            
+                            level_sound.play()   
+                                                
+            # Colisión de enemigos con bloque y manejo de vidas                
             for enemy in enemys.copy():
                 if detectar_colision_circulos(block["rect"], enemy["rect"]):
                     enemys.remove(enemy)
@@ -307,26 +310,41 @@ def screen1():
         pygame.display.flip()
         wait_user(K_SPACE)
 
-        # Guardar la puntuación al finalizar el juego
+        # Guardar la puntuacion al finalizar el juego
         save_score("Player", score)
 
-        #volver al menú
+        #volver al menu
         pygame.mouse.set_visible(True)
         return main_menu()
                
 
 def screen2():
-    while True:
+    running = True
+    while running:
         screen.blit(imagen_fondo_menu, ORIGIN)
         mouse_over_button = False
 
+        # Leer todas las puntuaciones desde el archivo CSV y revertir el orden
+        try:
+            with open("src/scores.csv", "r", newline="") as f:
+                scores = list(csv.reader(f))[-5:][::-1]  # Leer el archivo csv, lo convierto en lista y tomo las últimas 5 filas y luego invierto el orden
+        except IOError as e:
+            print(f"Error al leer el archivo CSV: {e}")
+            scores = []
+
+        # Mostrar las puntuaciones en la pantalla
+        y_pos = 180
+        for score in scores:
+            text_surf = fuente_1.render(f"{score[0]}: {score[1]}", True, BLACK)
+            screen.blit(text_surf, (WIDTH // 2 - text_surf.get_width() // 2, y_pos))
+            y_pos += 50
+
+        # Manejar eventos de Pygame
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit_game()
+                running = False
 
-        text_surf = fuente_1.render("Opciones", True, BLACK)
-        screen.blit(text_surf, (WIDTH // 2 - text_surf.get_width() // 2, HEIGHT // 2 - text_surf.get_height() // 2))
-
+        # Dibujar el boton de volver al menu principal
         if draw_button("Volver", pygame.Rect(300, 500, 200, 50), GREEN, YELLOW, main_menu):
             mouse_over_button = True
 
